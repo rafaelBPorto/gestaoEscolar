@@ -1,7 +1,9 @@
 import coursesProgramsRepository from "@/repositories/coursesPrograms-repository";
+import { CoursesPrograms } from "@prisma/client";
 
 async function getCoursesPrograms() {
-  const coursesPrograms = await coursesProgramsRepository.getCoursesPrograms();
+  const coursesPrograms: CoursesPrograms[] = await coursesProgramsRepository.getCoursesPrograms();
+  return coursesPrograms;
 }
 
 const coursesProgramsService = {
