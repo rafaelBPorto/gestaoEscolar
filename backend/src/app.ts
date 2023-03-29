@@ -1,5 +1,6 @@
 import express, {Express, Request, Response } from 'express';
 import cors from 'cors';
+import { connectDb } from '@/config';
 
 
 const app = express();
@@ -11,6 +12,7 @@ app
   
 
 export function init(): Promise<Express> {
+  connectDb
   return Promise.resolve(app);
 }
 export default app;
