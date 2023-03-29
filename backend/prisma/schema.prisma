@@ -39,8 +39,8 @@ model CoursesPrograms {
   idProgram     Int      @map("id_program")
   startAt       DateTime? @map("start_at")
   finishAt      DateTime? @map("finish_at")
-  program       Programs @relation(fields: [idProgram], references: [id])
-  courseSubject Courses  @relation(fields: [idCourse], references: [id])
+  program       Programs? @relation(fields: [idProgram], references: [id])
+  courseSubject Courses?  @relation(fields: [idCourse], references: [id])
   createdAt     DateTime @default(now()) @map("created_at")
 
   @@map("courses_programs")
