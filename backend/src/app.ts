@@ -4,7 +4,7 @@ import { connectDb } from '@/config';
 import { coursesProgramsRouter } from '@/routers/coursesPrograms-router';
 import { coursesRouter } from '@/routers/courses-router';
 
-
+console.log(process.env.PORT)
 const app = express();
 
 app
@@ -16,6 +16,7 @@ app
   
 
 export function init(): Promise<Express> {
+  console.log('init')
   connectDb()
   return Promise.resolve(app);
 }
