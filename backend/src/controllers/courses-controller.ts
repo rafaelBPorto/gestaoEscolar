@@ -5,7 +5,6 @@ import { Request, Response } from 'express';
 export async function getCourses(req: Request, res: Response) {
   try {
     const courses: Courses[] = await coursesService.getCourses();
-    console.log(courses);
     return res.send(courses);
   } catch (error) {
     console.log(error)

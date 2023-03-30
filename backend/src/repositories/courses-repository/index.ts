@@ -20,8 +20,6 @@ async function upsertCourse(course: Prisma.CoursesCreateInput, courseId?: number
     update: { ...course }
   });
 
-  console.log('upsert')
-  console.log(upsert)
   return upsert;
 }
 
