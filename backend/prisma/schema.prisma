@@ -19,7 +19,7 @@ model Courses {
   createdAt      DateTime          @default(now()) @map("created_at")
   coursesProgram CoursesPrograms[]
 
-  @@map("course_subject")
+  @@map("course")
 }
 
 model Programs {
