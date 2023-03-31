@@ -3,6 +3,7 @@ import cors from 'cors';
 import { connectDb, loadEnv } from '@/config';
 import { coursesProgramsRouter } from '@/routers/coursesPrograms-router';
 import { coursesRouter } from '@/routers/courses-router';
+import { programsRouter } from '@/routers';
 
 console.log("PORT deveria ser undefined pois o dotenv não foi selecionado ainda porém está sendo PORT=", process.env.PORT)
 loadEnv();
@@ -14,6 +15,7 @@ app
   .get('/health', (req: Request, res: Response)=> res.send('ok'))
   .use('/courses', coursesRouter)
   .use('/coursesPrograms', coursesProgramsRouter)
+  .use('/programs', programsRouter)
   
 
 export function init(): Promise<Express> {
