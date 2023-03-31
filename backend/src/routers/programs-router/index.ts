@@ -4,7 +4,7 @@ import { Router } from "express";
 const programsRouter = Router();
 
 programsRouter
-  .get('/', getPrograms);
+  .get('/:id?', getPrograms);
 
 export { programsRouter };
 
