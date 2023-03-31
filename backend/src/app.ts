@@ -1,9 +1,7 @@
 import express, {Express, Request, Response } from 'express';
 import cors from 'cors';
 import { connectDb, loadEnv } from '@/config';
-import { coursesProgramsRouter } from '@/routers/coursesPrograms-router';
-import { coursesRouter } from '@/routers/courses-router';
-import { programsRouter } from '@/routers';
+import { programsRouter, coursesRouter, coursesProgramsRouter  } from '@/routers';
 
 console.log("PORT deveria ser undefined pois o dotenv não foi selecionado ainda porém está sendo PORT=", process.env.PORT)
 loadEnv();
