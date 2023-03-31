@@ -11,6 +11,18 @@ async function getCourses(): Promise<Courses[]> {
   }
 };
 
+async function getFindUniqueCourse(courseId: number): Promise<Courses> {
+  try {
+    return prisma.courses.findUnique({
+      where: {
+        id: courseId
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 async function upsertCourse(course: Prisma.CoursesCreateInput, courseId?: number) {
   const upsert = await prisma.courses.upsert({
     where: {
@@ -25,6 +37,7 @@ async function upsertCourse(course: Prisma.CoursesCreateInput, courseId?: number
 
 const coursesRepository = {
   getCourses,
+  getFindUniqueCourse,
   upsertCourse
 };
 

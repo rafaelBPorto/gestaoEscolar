@@ -1,9 +1,12 @@
 import coursesRepository from '@/repositories/courses-repository';
 import { Courses, Prisma } from '@prisma/client';
 
-async function getCourses(): Promise<Courses[]> {
-  const courses: Courses[] = await coursesRepository.getCourses();
-  return courses;
+async function getCourses(courseId?: number): Promise<Courses | Courses[]> {
+  if (!courseId) {
+    return await coursesRepository.getCourses() as Courses[];
+  }
+
+  return await coursesRepository.getFindUniqueCourse(courseId) as Courses;
 }
 
 async function upsertCourse(course: Prisma.CoursesCreateInput, id?: number | undefined): Promise<Courses> {
