@@ -7,7 +7,7 @@ async function getCourses(): Promise<Courses[]> {
     return listCourses;
 
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };
 

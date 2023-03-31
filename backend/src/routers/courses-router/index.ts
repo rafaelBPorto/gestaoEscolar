@@ -6,6 +6,6 @@ const coursesRouter = Router();
 
 coursesRouter
   .get('/', getCourses)
-  .post('/:id?', upsertCourse)
+  .post('/:id?', upsertCourse);
 
 export { coursesRouter };

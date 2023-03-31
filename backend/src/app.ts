@@ -3,7 +3,7 @@ import cors from 'cors';
 import { connectDb, loadEnv } from '@/config';
 import { programsRouter, coursesRouter, coursesProgramsRouter  } from '@/routers';
 
-console.log("PORT deveria ser undefined pois o dotenv não foi selecionado ainda porém está sendo PORT=", process.env.PORT)
+console.log("PORT deveria ser undefined pois o dotenv não foi selecionado ainda porém está sendo PORT=", process.env.PORT);
 loadEnv();
 const app = express();
 
@@ -13,11 +13,11 @@ app
   .get('/health', (req: Request, res: Response)=> res.send('ok'))
   .use('/courses', coursesRouter)
   .use('/coursesPrograms', coursesProgramsRouter)
-  .use('/programs', programsRouter)
+  .use('/programs', programsRouter);
   
 
 export function init(): Promise<Express> {
-  connectDb()
+  connectDb();
   return Promise.resolve(app);
 }
 export default app;

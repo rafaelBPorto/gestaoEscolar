@@ -1,10 +1,10 @@
 import getPrograms from "@/controllers/programs-controller";
 import { Router } from "express";
 
-const programsRouter = Router()
+const programsRouter = Router();
 
 programsRouter
-  .get('/', getPrograms)
+  .get('/', getPrograms);
 
 export { programsRouter };
 
