@@ -10,8 +10,7 @@ async function getCourses(courseId?: number): Promise<Courses | Courses[]> {
 }
 
 async function upsertCourse(course: Prisma.CoursesCreateInput, id?: number | undefined): Promise<Courses> {
-  const upsertCourse: Courses = await coursesRepository.upsertCourse(course, id);
-  return upsertCourse;
+  return await coursesRepository.upsertCourse(course, id);
 }
 
 const coursesService = {
