@@ -9,7 +9,7 @@ async function getPrograms(programId?: number): Promise<Programs | Programs[]> {
   return await programsRepository.getUniqueProgram(programId);
 }
 
-async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: number | undefined) : Promise<Programs>{
+async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: number) : Promise<Programs>{
   const result = await programsRepository.upsertPrograms(program, programId);
   if (!result) {
     if (programId) {
