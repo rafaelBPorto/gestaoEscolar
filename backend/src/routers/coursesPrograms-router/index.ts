@@ -4,6 +4,6 @@ import { Router } from 'express';
 const coursesProgramsRouter = Router();
 
 coursesProgramsRouter
-  .get('/', getCoursesPrograms);
+  .get('/:id?', getCoursesPrograms);
 
 export { coursesProgramsRouter };
