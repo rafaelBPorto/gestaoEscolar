@@ -19,7 +19,7 @@ async function getCourses(courseId?: number): Promise<Courses | Courses[]> {
   }
 }
 
-async function upsertCourse(course: Prisma.CoursesCreateInput, courseId?: number | undefined): Promise<Courses> {
+async function upsertCourse(course: Prisma.CoursesCreateInput, courseId?: number): Promise<Courses> {
   const result = await coursesRepository.upsertCourse(course, courseId);
   if (result == null) {
     throw new Error("Couldn't update or create the course");
