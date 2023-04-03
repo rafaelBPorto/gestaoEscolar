@@ -22,7 +22,8 @@ async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: n
 }
 
 const servicePrograms = {
-  getPrograms
+  getPrograms,
+  upsertPrograms
 };
 
 export default servicePrograms;
