@@ -5,7 +5,7 @@ async function getCourses(): Promise<Courses[]> {
   return await prisma.courses.findMany();
 };
 
-async function getFindUniqueCourse(courseId: number): Promise<Courses> {
+async function getFindUniqueCourseById(courseId: number): Promise<Courses> {
   return await prisma.courses.findUnique({
     where: {
       id: courseId
@@ -25,7 +25,7 @@ async function upsertCourse(course: Prisma.CoursesCreateInput, courseId?: number
 
 const coursesRepository = {
   getCourses,
-  getFindUniqueCourse,
+  getFindUniqueCourseById,
   upsertCourse
 };
 

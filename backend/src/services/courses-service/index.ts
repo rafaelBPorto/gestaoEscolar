@@ -10,7 +10,7 @@ async function getCourses(courseId?: number): Promise<Courses | Courses[]> {
     return courses;
 
   } else {
-    const course = await coursesRepository.getFindUniqueCourse(courseId) as Courses;
+    const course = await coursesRepository.getFindUniqueCourseById(courseId) as Courses;
     if (!course) {
       throw new Error(`Course with id ${courseId} not found`);
     }

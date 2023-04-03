@@ -5,7 +5,7 @@ const coursesRouter = Router();
 
 
 coursesRouter
-  .get('/', getCourses)
+  .get('/:id?', getCourses)
   .post('/:id?', upsertCourse);
 
 export { coursesRouter };
