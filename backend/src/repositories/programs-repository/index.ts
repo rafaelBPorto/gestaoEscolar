@@ -1,6 +1,5 @@
 import { Programs, Prisma } from ".prisma/client";
 import { prisma } from "@/config";
-import { create } from "domain";
 
 async function getPrograms(): Promise<Programs[]> {
   const listPrograms: Programs[] = await prisma.programs.findMany();
