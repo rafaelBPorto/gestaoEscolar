@@ -7,7 +7,7 @@ async function getPrograms(): Promise<Programs[]> {
   return listPrograms;
 }
 
-async function getUniqueProgram(porgramId: number): Promise<Programs> {
+async function getProgramById(porgramId: number): Promise<Programs> {
   const program: Programs = await prisma.programs.findUnique({
     where: {
       id: porgramId
@@ -27,7 +27,7 @@ async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: n
 
 const programsRepository = {
   getPrograms,
-  getUniqueProgram,
+  getProgramById,
   upsertPrograms
 };
 

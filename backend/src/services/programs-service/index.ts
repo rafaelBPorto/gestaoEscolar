@@ -6,7 +6,7 @@ async function getPrograms(programId?: number): Promise<Programs | Programs[]> {
     return await programsRepository.getPrograms();
   };
 
-  return await programsRepository.getUniqueProgram(programId);
+  return await programsRepository.getProgramById(programId);
 }
 
 async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: number) : Promise<Programs>{
