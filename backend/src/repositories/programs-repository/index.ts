@@ -1,5 +1,6 @@
-import { Programs } from ".prisma/client";
+import { Programs, Prisma } from ".prisma/client";
 import { prisma } from "@/config";
+import { create } from "domain";
 
 async function getPrograms(): Promise<Programs[]> {
   const listPrograms: Programs[] = await prisma.programs.findMany();
@@ -16,9 +17,18 @@ async function getUniqueProgram(porgramId: number): Promise<Programs> {
   return program;
 }
 
+async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: number): Promise<Programs> {
+  return await prisma.programs.upsert({
+    where: { id: programId | 0 },
+    create: { ...program },
+    update: { ...program }
+  });
+}
+
 const programsRepository = {
   getPrograms,
-  getUniqueProgram
+  getUniqueProgram,
+  upsertPrograms
 };
 
 export default programsRepository;
