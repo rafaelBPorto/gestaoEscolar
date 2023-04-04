@@ -23,7 +23,8 @@ function postManyCoursesProgramas(coursesPrograms : CoursesPrograms[]) {
 
 const coursesProgramsRepository = {
   getCoursesPrograms,
-  getCoursesProgramById
+  getCoursesProgramById,
+  postManyCoursesProgramas
 };
 
 export default coursesProgramsRepository;
