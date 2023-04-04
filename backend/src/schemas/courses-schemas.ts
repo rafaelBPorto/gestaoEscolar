@@ -1,10 +1,9 @@
 import { Prisma } from "@prisma/client";
 import Joi from "joi";
 
-export const courseProgramsSchema = Joi.object<Prisma.CoursesProgramsCreateManyInput>({
+export const createCoursesSchema = Joi.object<Prisma.CoursesCreateInput>({
   name: Joi.string().required(),
-  idCourse: Joi.number().integer().required(),
-  idProgram: Joi.number().integer().required(),
+  courseCode: Joi.string().required(),
+  workload: Joi.number().required(),
+  fieldStudy: Joi.string().required(),
 });
-
-export const courseProgramsArraySchema = Joi.array().items(courseProgramsSchema).min(1);
