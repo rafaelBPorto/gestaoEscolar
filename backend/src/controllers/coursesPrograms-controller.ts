@@ -10,4 +10,14 @@ export async function getCoursesPrograms(req: Request, res: Response) {
   } catch (error) {
     return res.send(error);
   }
+};
+
+export async function postManyCoursesProgramas(req:Request, res:Response) {
+  const  coursesPrograms : CoursesPrograms[] = req.body;
+  try{
+    await coursesProgramsService.postCreateManyCoursesPrograms(coursesPrograms);
+    return res.sendStatus(201);
+  } catch (error) {
+    return res.status(500).send(error);
+  }
 }
