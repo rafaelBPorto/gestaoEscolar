@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { ArraySchema, ObjectSchema } from "joi";
 
-export function validateBody<T>(shema: ObjectSchema<T> | ArraySchema): ValidationMiddleware {
-  return validate(shema, "body");
+export function validateBody<T>(schema: ObjectSchema<T> | ArraySchema): ValidationMiddleware {
+  return validate(schema, "body");
 };
 
 export function validateParams<T>(schema: ObjectSchema<T>): ValidationMiddleware {
