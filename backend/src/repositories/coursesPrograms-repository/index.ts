@@ -14,6 +14,12 @@ function getCoursesProgramById(coursesProgramsId: number): Promise<CoursesProgra
   });
 }
 
+function postManyCoursesProgramas(coursesPrograms : CoursesPrograms[]) {
+  return prisma.coursesPrograms.createMany({
+    data: coursesPrograms
+  });
+}
+
 
 const coursesProgramsRepository = {
   getCoursesPrograms,
