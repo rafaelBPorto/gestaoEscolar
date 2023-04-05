@@ -7,26 +7,28 @@ async function getCourses(): Promise<Courses[]> {
 
 async function getFindUniqueCourseById(courseId: number): Promise<Courses> {
   return await prisma.courses.findUnique({
-    where: {
-      id: courseId
-    }
+    where: { id: courseId }
   });
-}
+};
 
-async function upsertCourse(course: Prisma.CoursesCreateInput, courseId?: number): Promise<Courses> {
-  return await prisma.courses.upsert({
-    where: {
-      id: courseId | 0
-    },
-    create: { ...course },
-    update: { ...course }
+async function postCourse(course: Prisma.CoursesCreateInput): Promise<Courses> {
+  return await prisma.courses.create({
+    data: { ...course }
   });
-}
+};
+
+async function updateCourse(course: Prisma.CoursesCreateInput, courseId: number): Promise<Courses> {
+  return await prisma.courses.update({
+    where: { id: courseId },
+    data: { ...course }
+  });
+};
 
 const coursesRepository = {
   getCourses,
   getFindUniqueCourseById,
-  upsertCourse
+  postCourse,
+  updateCourse
 };
 
-export default coursesRepository;
+export default coursesRepository;    
