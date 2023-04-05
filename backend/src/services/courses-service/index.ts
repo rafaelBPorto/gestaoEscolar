@@ -1,3 +1,4 @@
+import { notFoundError } from '@/errors';
 import coursesRepository from '@/repositories/courses-repository';
 import { Courses, Prisma } from '@prisma/client';
 
@@ -5,17 +6,16 @@ async function getCourses(courseId?: number): Promise<Courses | Courses[]> {
   if (!courseId) {
     const courses = await coursesRepository.getCourses() as Courses[];
     if (courses.length === 0) {
-      throw new Error('No courses were found');
+      throw notFoundError();
     };
     return courses;
 
   } else {
     const course = await coursesRepository.getFindUniqueCourseById(courseId) as Courses;
     if (!course) {
-      throw new Error(`Course with id ${courseId} not found`);
+      throw notFoundError();
     };
     return course;
-
   };
 };
 
@@ -23,19 +23,21 @@ async function postCourse(course: Prisma.CoursesCreateInput) : Promise<Courses> 
   return await coursesRepository.postCourse(course);
 };
 
-async function updateCourse(course: Prisma.CoursesCreateInput, courseId?: number): Promise<Courses> {
-  const result = await coursesRepository.updateCourse(course, courseId);
-  if (result == null) {
-    throw new Error("Couldn't update the course");
+async function putCourse(course: Prisma.CoursesCreateInput, courseId: number): Promise<Courses> {
+  const findCourse = await coursesRepository.getFindUniqueCourseById(courseId);
+  if(!findCourse){
+    throw notFoundError();
   };
-  
+
+  const result = await coursesRepository.putCourse(course, courseId);
   return result;
 };
+
 
 const coursesService = {
   getCourses,
   postCourse,
-  updateCourse
+  putCourse
 };
 
 export default coursesService;

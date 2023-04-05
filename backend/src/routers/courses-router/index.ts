@@ -1,4 +1,4 @@
-import { getCourses, postCourse, updateCourse } from '@/controllers/courses-controller';
+import { getCourses, postCourse, putCourse } from '@/controllers/courses-controller';
 import { validateBody } from '@/middlewares';
 import validateIdParameter from '@/middlewares/validationId-middleare';
 import { createCoursesSchema } from '@/schemas/courses-schemas';
@@ -10,6 +10,6 @@ const coursesRouter = Router();
 coursesRouter
   .get('/:id?', validateIdParameter, getCourses)
   .post('/', validateBody(createCoursesSchema), postCourse)
-  .put('/:id', validateIdParameter, validateBody(createCoursesSchema), updateCourse);
+  .put('/:id', validateIdParameter, validateBody(createCoursesSchema), putCourse);
 
 export { coursesRouter };

@@ -17,7 +17,7 @@ async function postCourse(course: Prisma.CoursesCreateInput): Promise<Courses> {
   });
 };
 
-async function updateCourse(course: Prisma.CoursesCreateInput, courseId: number): Promise<Courses> {
+async function putCourse(course: Prisma.CoursesCreateInput, courseId: number): Promise<Courses> {
   return await prisma.courses.update({
     where: { id: courseId },
     data: { ...course }
@@ -28,7 +28,7 @@ const coursesRepository = {
   getCourses,
   getFindUniqueCourseById,
   postCourse,
-  updateCourse
+  putCourse
 };
 
 export default coursesRepository;    
