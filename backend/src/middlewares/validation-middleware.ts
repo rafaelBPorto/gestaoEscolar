@@ -1,3 +1,4 @@
+import { ValidationMiddleware } from "@/protocols";
 import { NextFunction, Request, Response } from "express";
 import { ArraySchema, ObjectSchema } from "joi";
 
@@ -24,4 +25,3 @@ function validate(schema: ObjectSchema | ArraySchema, type: "body" | "params") {
   };
 }
 
-type ValidationMiddleware = (req: Request, res: Response, next: NextFunction) => void;
