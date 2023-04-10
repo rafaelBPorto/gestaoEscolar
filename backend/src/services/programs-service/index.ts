@@ -1,4 +1,5 @@
 import { Prisma, Programs } from ".prisma/client";
+import { conflictError, notFoundError } from "@/errors";
 import programsRepository from "@/repositories/programs-repository";
 
 async function getPrograms(programId?: number): Promise<Programs | Programs[]> {
@@ -7,23 +8,33 @@ async function getPrograms(programId?: number): Promise<Programs | Programs[]> {
   };
 
   return await programsRepository.getProgramById(programId);
-}
+};
 
-async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: number) : Promise<Programs>{
-  const result = await programsRepository.upsertPrograms(program, programId);
-  if (!result) {
-    if (programId) {
-      throw new Error(`Program wiht id ${programId} not found`);
-    } else {
-      throw new Error(`Not possible to register this course, please try again.`);
-    }
+async function postProgram(program:Prisma.ProgramsCreateInput): Promise<Programs> {
+  const newProgram = await programsRepository.postProgram(program);
+  if(!newProgram) {
+    throw conflictError("Unable to register the program");
   }
-  return result;
-}
+  return newProgram;
+};
+
+async function putPrograms(program: Prisma.ProgramsCreateInput, programId: number) : Promise<Programs>{
+  const findProgram = await programsRepository.getProgramById(programId);
+  if(!findProgram){
+    throw notFoundError();
+  };
+
+  const updateProgram = await programsRepository.putProgram(program, programId);
+  if (!updateProgram) {
+    throw conflictError("It was not possible to make the change(s)");
+  };
+  return updateProgram;
+};
 
 const servicePrograms = {
   getPrograms,
-  upsertPrograms
+  postProgram,
+  putPrograms
 };
 
 export default servicePrograms;

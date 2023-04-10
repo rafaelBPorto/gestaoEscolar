@@ -1,13 +1,15 @@
-import { getPrograms, upsertPrograms } from "@/controllers/programs-controller";
+import { getPrograms, postProgram, putProgram } from "@/controllers/programs-controller";
 import { validateBody } from "@/middlewares";
+import validateIdParameter from "@/middlewares/validationId-middleare";
 import { createProgramsSchema } from "@/schemas/programs-schemas";
 import { Router } from "express";
 
 const programsRouter = Router();
 
 programsRouter
-  .get('/:id?', getPrograms)
-  .post('/:id?', validateBody(createProgramsSchema), upsertPrograms);
+  .get('/:id?', validateIdParameter, getPrograms)
+  .post('/', validateBody(createProgramsSchema), postProgram)
+  .put(':id', validateIdParameter, validateBody(createProgramsSchema), putProgram);
 
 export { programsRouter };
 

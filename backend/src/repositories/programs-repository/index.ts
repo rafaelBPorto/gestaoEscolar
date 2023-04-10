@@ -16,18 +16,24 @@ async function getProgramById(porgramId: number): Promise<Programs> {
   return program;
 }
 
-async function upsertPrograms(program: Prisma.ProgramsCreateInput, programId?: number): Promise<Programs> {
-  return await prisma.programs.upsert({
-    where: { id: programId | 0 },
-    create: { ...program },
-    update: { ...program }
+async function putProgram(program: Prisma.ProgramsCreateInput, programId: number): Promise<Programs> {
+  return await prisma.programs.update({
+    where: { id: programId },
+    data: { ...program }
   });
-}
+};
+
+async function postProgram(program: Prisma.ProgramsCreateInput): Promise<Programs> {
+  return await prisma.programs.create({
+    data: { ...program }
+  });
+};
 
 const programsRepository = {
   getPrograms,
   getProgramById,
-  upsertPrograms
+  postProgram,
+  putProgram
 };
 
 export default programsRepository;

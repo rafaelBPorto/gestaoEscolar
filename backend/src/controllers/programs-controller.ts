@@ -9,17 +9,35 @@ export async function getPrograms(req: Request, res: Response) {
     res.send(programs);
   } catch (error) {
     return res.status(500).send(error);
-  }
-}
+  };
+};
 
-export async function upsertPrograms(req: Request, res: Response) {
+export async function postProgram(req: Request, res: Response) {
+  const program: Prisma.ProgramsCreateInput = req.body;
+  try {
+    const newProgram: Programs = await servicePrograms.postProgram(program);
+    return res.send(newProgram);
+  } catch (error) {
+    if (error.name === "ConflictError") {
+      return res.status(409).send({ error: error.message });
+    };
+    return res.sendStatus(500);
+  };
+};
+
+export async function putProgram(req: Request, res: Response) {
   const program: Prisma.ProgramsCreateInput = req.body;
   const programId: number = Number(req.params.id);
   try {
-    const newProgram: Programs = await servicePrograms.upsertPrograms(program, programId);
+    const newProgram: Programs = await servicePrograms.putPrograms(program, programId);
     return res.send(newProgram);
   } catch (error) {
-    res.send(error);
-  }
-
-}
+    if ( error.name === "NotFoundError"){
+      return res.status(404).send({error: error.message});
+    };
+    if (error.name === "ConflictError") {
+      return res.status(409).send({ error: error.message });
+    };
+    return res.sendStatus(500);
+  };
+};
