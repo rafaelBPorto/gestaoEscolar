@@ -9,7 +9,6 @@
     "dev:seed": "npx dotenv -e .env.development npm run seed",
     "dev": "NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts",
     "dev:database": "dotenv -e .env.development prisma migrate dev & npm run dev"
-
   },
   "keywords": [],
   "author": "",
@@ -17,13 +16,17 @@
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.0",
     "@types/node": "^18.15.11",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.37.0",
+    "jest": "^29.5.0",
     "prisma": "^4.11.0",
+    "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.2",
+    "typecript": "^0.0.1-security",
     "typescript": "^5.0.2",
     "typescript-transform-paths": "^3.4.6"
   },
