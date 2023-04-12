@@ -1,4 +1,3 @@
-import { notFoundError } from '@/errors';
 import coursesRepository from '@/repositories/courses-repository/index';
 import coursesService from '@/services/courses-service/index';
 
@@ -29,7 +28,7 @@ describe("getCourses unit test suite", () => {
       return Promise.resolve([...mockCourses]);
     });
     const response = await coursesService.getCourses();
-    expect(response).toEqual([...mockCourses ]);
+    expect(response).toEqual([...mockCourses]);
   });
 
   //Sem id se array === 0 lançar erro notfound
@@ -58,11 +57,16 @@ describe("getCourses unit test suite", () => {
   });
 });
 
+describe("postCourse unit test suite", () => {
+  const mockCoursesToPost = { ...mockCourses[0] };
+  delete mockCoursesToPost.id;
+  delete mockCoursesToPost.createdAt;
 
+  it("shold return an object of course", async () => {
+    jest.spyOn(coursesRepository, "postCourse").mockImplementationOnce(() => Promise.resolve(mockCourses[0]));
 
-
-  // //Com id se não encontrato lançar erro notfound
-  // it("shold retunr 4", () => {
-
-  // })
+    const response = await coursesService.postCourse(mockCoursesToPost);
+    expect(response).toEqual(mockCourses[0]);
+  });
+});
 
