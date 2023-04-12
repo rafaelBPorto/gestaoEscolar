@@ -18,7 +18,9 @@ model Courses {
   fieldStudy     String
   createdAt      DateTime          @default(now()) @map("created_at")
   coursesProgram CoursesPrograms[]
+  Timetable      Timetable[]
 
+  @@unique([name, workload])
   @@map("course")
 }
 
@@ -28,20 +30,53 @@ model Programs {
   fieldStudy    String
   courseProgram CoursesPrograms[]
   createdAt     DateTime          @default(now()) @map("created_at")
+  Timetable     Timetable[]
 
   @@map("program")
 }
 
 model CoursesPrograms {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   name          String
-  idCourse      Int      @map("id_course")
-  idProgram     Int      @map("id_program")
+  idCourse      Int       @map("id_course")
+  idProgram     Int       @map("id_program")
   startAt       DateTime? @map("start_at")
   finishAt      DateTime? @map("finish_at")
   program       Programs? @relation(fields: [idProgram], references: [id])
   courseSubject Courses?  @relation(fields: [idCourse], references: [id])
-  createdAt     DateTime @default(now()) @map("created_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
 
   @@map("courses_programs")
+}
+
+model NonSchoolDays {
+  id          Int      @id @default(autoincrement())
+  type        String
+  description TypeNonSchoolDays
+  shift       Shift
+  date        DateTime @db.Date
+
+  @@map("non-school-days")
+}
+
+enum Shift {
+  Morning
+  Afternoon
+  Night
+}
+
+enum TypeNonSchoolDays {
+  holiday
+  educational
+  recess
+}
+
+model Timetable {
+  id         Int      @id @default(autoincrement())
+  idProgram  Int      @map("id-program")
+  idCourse   Int      @map("id-course")
+  startClass DateTime @map("start-class")
+  endClass   DateTime @map("end-class")
+  course     Courses? @relation(fields: [idCourse], references: [id])
+  program    Programs @relation(fields: [idProgram], references: [id])
 }
