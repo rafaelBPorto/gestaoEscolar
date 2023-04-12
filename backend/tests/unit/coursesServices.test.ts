@@ -17,13 +17,20 @@ const mockCourses = [
     "workload": 80,
     "fieldStudy": "Ciência da Computação",
     "createdAt": new Date("2023-03-30T15:09:11.389Z")
+  },
+  {
+    "id": 2,
+    "name": "Novo curso2",
+    "courseCode": "NC001",
+    "workload": 100,
+    "fieldStudy": "Ciência da Computação",
+    "createdAt": new Date("2023-03-30T15:09:11.389Z")
   }
 ];
 
 describe("getCourses unit test suite", () => {
 
-  //Sem id Retornar array de cursos cadastrados
-  it("sshould return an array of courses", async () => {
+  it("should return an array of courses", async () => {
     jest.spyOn(coursesRepository, 'getCourses').mockImplementationOnce(() => {
       return Promise.resolve([...mockCourses]);
     });
@@ -31,7 +38,6 @@ describe("getCourses unit test suite", () => {
     expect(response).toEqual([...mockCourses]);
   });
 
-  //Sem id se array === 0 lançar erro notfound
   it("should throw a notFoundError when no courses are returned", async () => {
     jest.spyOn(coursesRepository, 'getCourses').mockImplementationOnce(() => {
       return Promise.resolve([]);
@@ -64,9 +70,37 @@ describe("postCourse unit test suite", () => {
 
   it("shold return an object of course", async () => {
     jest.spyOn(coursesRepository, "postCourse").mockImplementationOnce(() => Promise.resolve(mockCourses[0]));
-
+    
     const response = await coursesService.postCourse(mockCoursesToPost);
     expect(response).toEqual(mockCourses[0]);
+  });
+});
+
+describe("putCourse unit test suite", () =>{
+  it("shold return an object of course", async ()=>{
+    jest.spyOn(coursesRepository, "putCourse").mockImplementationOnce(()=> Promise.resolve(mockCourses[2]));
+    
+    jest.spyOn(coursesRepository, 'getFindUniqueCourseById').mockImplementationOnce(() => {
+      return Promise.resolve(mockCourses[1]);
+    });
+
+    const courseToUpdate = {...mockCourses[2]};
+    delete courseToUpdate.id;
+    const response = await coursesService.putCourse(courseToUpdate, 2);
+    expect(response).toEqual(mockCourses[2]);
+  });
+
+   it("should throw a notFoundError when no course is returned for the given id", async ()=>{
+    // jest.spyOn(coursesRepository, "putCourse").mockImplementationOnce(()=> Promise.resolve(mockCourses[2]));
+    
+    jest.spyOn(coursesRepository, 'getFindUniqueCourseById').mockImplementationOnce(() => {
+      return Promise.resolve(null);
+    });
+
+    const courseToUpdate = {...mockCourses[2]};
+    delete courseToUpdate.id;
+    await expect(coursesService.putCourse(courseToUpdate, 2)).rejects.toEqual({ message: "Record not found!", name: "NotFoundError" });
+
   });
 });
 
