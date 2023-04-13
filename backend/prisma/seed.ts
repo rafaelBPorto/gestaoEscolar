@@ -1,11 +1,18 @@
 import { PrismaClient } from '@prisma/client';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 dotenv.config();
-console.log(process.env.PORT)
+console.log(process.env.PORT);
 
 const prisma = new PrismaClient();
 
 async function main() {
+
+  await prisma.timetable.deleteMany({});
+  await prisma.nonSchoolDays.deleteMany({});
+  await prisma.coursesPrograms.deleteMany({});
+  await prisma.programs.deleteMany({});
+  await prisma.courses.deleteMany({});
+
   // Inserir registros na tabela Courses
   await prisma.courses.createMany({
     data: [

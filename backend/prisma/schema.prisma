@@ -50,11 +50,12 @@ model CoursesPrograms {
 }
 
 model NonSchoolDays {
-  id          Int      @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   type        String
   description TypeNonSchoolDays
   shift       Shift
-  date        DateTime @db.Date
+  date        DateTime          @db.Date
+  createdAt   DateTime          @default(now()) @map("created_at")
 
   @@map("non-school-days")
 }
@@ -79,4 +80,5 @@ model Timetable {
   endClass   DateTime @map("end-class")
   course     Courses? @relation(fields: [idCourse], references: [id])
   program    Programs @relation(fields: [idProgram], references: [id])
+  createdAt  DateTime @default(now()) @map("created_at")
 }
