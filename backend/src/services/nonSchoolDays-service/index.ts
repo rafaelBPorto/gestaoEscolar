@@ -36,17 +36,14 @@ async function getNonSchoolDaysByqueries(
   return listNonScoolDays;
 };
 
-async function postManyNonSchoolDays(nonSchoolDays: Prisma.NonSchoolDaysCreateInput[]){
+async function postManyNonSchoolDays(nonSchoolDays: Prisma.NonSchoolDaysCreateInput[]) {
   const convertedNonSchoolDays = mapNonSchoolDaysToDates(nonSchoolDays);
   const { count } = await nonSchoolDaysRespository.postManyNonSchoolDays(convertedNonSchoolDays);
-  if (count === 0) {
+  if (count === 0 || count == undefined) {
     throw conflictError("unregistered dates");
   };
-
   const listNonScoolDaysCreated = await nonSchoolDaysRespository.getNonSchoolDaysByOrderCreatedAt(count);
-  if (listNonScoolDaysCreated.length === 0) {
-    throw conflictError("unregistered dates");
-  };
+
   return listNonScoolDaysCreated;
 
 };
