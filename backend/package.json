@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "ts-node ./prisma/seed.ts",
-    "dev:seed": "npx dotenv -e .env.development npm run seed",
     "dev": "NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts",
+    "dev:seed": "npx dotenv -e .env.development npm run seed",
     "dev:migrate": "dotenv -e .env.development prisma migrate dev",
     "dev:prisma:studio": "dotenv -e .env.development prisma studio"
   },

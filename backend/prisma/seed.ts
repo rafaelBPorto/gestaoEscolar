@@ -7,12 +7,12 @@ const prisma = new PrismaClient();
 
 async function main() {
 
-  await prisma.timetable.deleteMany({});
-  await prisma.nonSchoolDays.deleteMany({});
-  await prisma.coursesPrograms.deleteMany({});
-  await prisma.programs.deleteMany({});
-  await prisma.courses.deleteMany({});
-
+  await prisma.$executeRaw`TRUNCATE TABLE "Timetable" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "non-school-days" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "courses_programs" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "program" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "course" RESTART IDENTITY CASCADE;`;
+  
   // Inserir registros na tabela Courses
   await prisma.courses.createMany({
     data: [
