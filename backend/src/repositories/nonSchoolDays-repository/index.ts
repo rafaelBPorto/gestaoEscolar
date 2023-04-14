@@ -1,6 +1,5 @@
 import { prisma } from "@/config";
 import { NonSchoolDays, Prisma } from "@prisma/client";
-import { error } from "console";
 
 function getNonSchoolDays(): Promise<NonSchoolDays[]> {
   return prisma.nonSchoolDays.findMany();
@@ -45,8 +44,6 @@ async function postManyNonSchoolDays(nonSchoolDays: any) {
     return error;
   };
 };
-
-
 
 function putNonSchoolDaysById(idNonShcoolDays: number, nonSchoolDays: Prisma.NonSchoolDaysUpdateInput) {
   return prisma.nonSchoolDays.update({
