@@ -36,7 +36,7 @@ function getNonSchoolDaysByOrderCreatedAt(count: number): Promise<NonSchoolDays[
 }
 
 async function postManyNonSchoolDays(nonSchoolDays: any) {
-  try{
+  try {
     return await prisma.nonSchoolDays.createMany({
       data: nonSchoolDays
     });
@@ -52,9 +52,13 @@ function putNonSchoolDaysById(idNonShcoolDays: number, nonSchoolDays: Prisma.Non
   });
 };
 
-function deleteNonSchoolDaysById(idNonShcoolDays: number) {
-  return prisma.nonSchoolDays.delete({
-    where: { id: idNonShcoolDays },
+function deleteManyNonSchoolDaysById(idsNonShcoolDays: number[]) {
+  return prisma.nonSchoolDays.deleteMany({
+    where: {
+      id: {
+        in: idsNonShcoolDays
+      }
+    },
   });
 };
 
@@ -65,7 +69,7 @@ const nonSchoolDaysRespository = {
   getNonSchoolDaysByOrderCreatedAt,
   postManyNonSchoolDays,
   putNonSchoolDaysById,
-  deleteNonSchoolDaysById
+  deleteManyNonSchoolDaysById
 };
 
 export default nonSchoolDaysRespository;

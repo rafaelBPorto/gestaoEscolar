@@ -26,3 +26,16 @@ export async function postManyNonSchoolDays(req: Request, res: Response) {
     return res.status(500);
   };
 };
+
+export async function deleteManyNonSchoolDaysById(req: Request, res: Response) {
+  const listIds = req.body;
+  try{
+    const count = await nonSchoolDaysService.deleteManyNonSchoolDaysById(listIds);
+    return res.status(200).send(`${count} records were deleted`);
+  } catch (error){
+    if (error.name === 'NotFoundError') {
+      return res.status(404).send({error: error.message});
+    };
+    return res.sendStatus(500);
+  };
+};

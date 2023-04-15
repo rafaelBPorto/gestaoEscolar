@@ -48,12 +48,22 @@ async function postManyNonSchoolDays(nonSchoolDays: Prisma.NonSchoolDaysCreateIn
 
 };
 
+async function deleteManyNonSchoolDaysById(idsNonSchoolDays: number[]) {
+  const { count } = await nonSchoolDaysRespository.deleteManyNonSchoolDaysById(idsNonSchoolDays);
+  if (count === 0 || count == undefined) {
+    throw notFoundError();
+  };
+
+  return count;
+}
+
 
 const nonSchoolDaysService = {
   getNonSchoolDays,
   getNonSchoolDaysById,
   getNonSchoolDaysByqueries,
-  postManyNonSchoolDays
+  postManyNonSchoolDays,
+  deleteManyNonSchoolDaysById
 };
 
 export default nonSchoolDaysService;

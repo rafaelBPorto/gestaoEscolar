@@ -1,5 +1,6 @@
 import { Prisma } from "@prisma/client";
 import Joi from "joi";
+import { paramsIdSchema } from "./params-schemas";
 
 export const createNonSchoolDaysSchema = Joi.object<Prisma.NonSchoolDaysCreateInput>({
   description: Joi.string().required(),
@@ -9,3 +10,6 @@ export const createNonSchoolDaysSchema = Joi.object<Prisma.NonSchoolDaysCreateIn
 });
 
 export const createNonSchoolDaysArraySchema = Joi.array().items(createNonSchoolDaysSchema).min(1);
+
+export const deleteManyNonSchoolDaysByIdsSchema = Joi.array().items(Joi.number()).min(1);
+
