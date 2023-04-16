@@ -82,4 +82,7 @@ model Timetable {
   course     Courses? @relation(fields: [idCourse], references: [id])
   program    Programs @relation(fields: [idProgram], references: [id])
   createdAt  DateTime @default(now()) @map("created_at")
+
+  @@unique([idProgram, idCourse, startClass])
+  @@map("timetable")
 }
