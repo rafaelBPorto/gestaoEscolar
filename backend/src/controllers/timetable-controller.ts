@@ -16,8 +16,9 @@ export async function postManyTimetable(req: Request, res: Response) {
 };
 
 export async function createFullTimetable(req: Request, res: Response) {
+  const {idProgram, durationClass, startClass} = req.body;
   try {
-    const coursesProgram = await timeTableService.generateClassSchedule(1, 4, '2024-01-01');
+    const coursesProgram = await timeTableService.generateClassSchedule(idProgram, durationClass, startClass);
     return res.send(coursesProgram);
   } catch (error) {
     if (error.name === "ConflictError") {

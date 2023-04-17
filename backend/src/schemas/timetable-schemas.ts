@@ -9,3 +9,9 @@ export const createTimeTableSchema = Joi.object<Prisma.TimetableCreateManyInput>
 });
 
 export const createManyTimeTableSchema = Joi.array().items(createTimeTableSchema);
+
+export const generateClassScheduleSchema = Joi.object({
+    idProgram: Joi.number().integer().min(1).required(),
+    durationClass: Joi.number().integer().min(1).required(), 
+    startClass: Joi.string().required()
+});
