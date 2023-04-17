@@ -1,10 +1,10 @@
 import { conflictError, notFoundError } from "@/errors";
-import nonSchoolDaysRespository from "@/repositories/nonSchoolDays-repository";
+import nonSchoolDaysRepository from "@/repositories/nonSchoolDays-repository";
 import { NonSchoolDays, Prisma } from "@prisma/client";
 import { mapNonSchoolDaysToDates } from "./mapNonSchoolDaysToDates";
 
 async function getNonSchoolDays(): Promise<NonSchoolDays[]> {
-  const listNonScoolDays = await nonSchoolDaysRespository.getNonSchoolDays();
+  const listNonScoolDays = await nonSchoolDaysRepository.getNonSchoolDays();
   if (listNonScoolDays.length === 0) {
     throw notFoundError();
   };
@@ -13,7 +13,7 @@ async function getNonSchoolDays(): Promise<NonSchoolDays[]> {
 };
 
 async function getNonSchoolDaysById(idNonSchoolDay: number): Promise<NonSchoolDays> {
-  const nonSchoolDay = await nonSchoolDaysRespository.getNonSchoolDaysById(idNonSchoolDay);
+  const nonSchoolDay = await nonSchoolDaysRepository.getNonSchoolDaysById(idNonSchoolDay);
   if (!nonSchoolDay) {
     throw notFoundError();
   }
@@ -28,7 +28,7 @@ async function getNonSchoolDaysByqueries(
   date?: Date
 ): Promise<NonSchoolDays[]> {
 
-  const listNonScoolDays = await nonSchoolDaysRespository.getNonSchoolDaysByqueries(type, description, shift, date);
+  const listNonScoolDays = await nonSchoolDaysRepository.getNonSchoolDaysByqueries(type, description, shift, date);
   if (listNonScoolDays.length === 0) {
     throw notFoundError();
   };
@@ -38,18 +38,18 @@ async function getNonSchoolDaysByqueries(
 
 async function postManyNonSchoolDays(nonSchoolDays: Prisma.NonSchoolDaysCreateInput[]) {
   const convertedNonSchoolDays = mapNonSchoolDaysToDates(nonSchoolDays);
-  const { count } = await nonSchoolDaysRespository.postManyNonSchoolDays(convertedNonSchoolDays);
+  const { count } = await nonSchoolDaysRepository.postManyNonSchoolDays(convertedNonSchoolDays);
   if (count === 0 || count == undefined) {
     throw conflictError("unregistered dates");
   };
-  const listNonScoolDaysCreated = await nonSchoolDaysRespository.getNonSchoolDaysByOrderCreatedAt(count);
+  const listNonScoolDaysCreated = await nonSchoolDaysRepository.getNonSchoolDaysByOrderCreatedAt(count);
 
   return listNonScoolDaysCreated;
 
 };
 
 async function deleteManyNonSchoolDaysById(idsNonSchoolDays: number[]) {
-  const { count } = await nonSchoolDaysRespository.deleteManyNonSchoolDaysById(idsNonSchoolDays);
+  const { count } = await nonSchoolDaysRepository.deleteManyNonSchoolDaysById(idsNonSchoolDays);
   if (count === 0 || count == undefined) {
     throw notFoundError();
   };

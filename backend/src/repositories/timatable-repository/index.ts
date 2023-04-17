@@ -13,8 +13,8 @@ async function postManyTimetable(metadates : Prisma.TimetableCreateManyInput[]) 
   };
 };
 
-const timeTable = {
+const timeTableRespository = {
   postManyTimetable
 };
 
-export default timeTable;
+export default timeTableRespository;

@@ -1,5 +1,6 @@
 import { prisma } from "@/config";
-import { NonSchoolDays, Prisma } from "@prisma/client";
+import { NonSchoolDays, Prisma, Shift } from "@prisma/client";
+import { date, func } from "joi";
 
 function getNonSchoolDays(): Promise<NonSchoolDays[]> {
   return prisma.nonSchoolDays.findMany();
@@ -12,7 +13,7 @@ function getNonSchoolDaysById(idNonSchoolDay: number): Promise<NonSchoolDays> {
 };
 
 function getNonSchoolDaysByqueries(
-  type: Prisma.EnumTypeNonSchoolDaysFilter,
+  type?: Prisma.EnumTypeNonSchoolDaysFilter,
   description: string = '',
   shift?: Prisma.EnumShiftFilter,
   date?: Date,
@@ -27,7 +28,18 @@ function getNonSchoolDaysByqueries(
     }
   });
 };
-
+async function getNonSchoolDaysByShiftAndDate(shift: Shift, dateI: Date, dateF: Date) {
+  const nonSchoolDays = await prisma.nonSchoolDays.findMany({
+    where: {
+      shift,
+      date: {
+        gte: dateI,
+        lt: dateF
+      }
+    }
+  });
+  return nonSchoolDays;
+}
 function getNonSchoolDaysByOrderCreatedAt(count: number): Promise<NonSchoolDays[]> {
   return prisma.nonSchoolDays.findMany({
     orderBy: { createdAt: 'desc' },
@@ -62,14 +74,16 @@ function deleteManyNonSchoolDaysById(idsNonShcoolDays: number[]) {
   });
 };
 
-const nonSchoolDaysRespository = {
+const nonSchoolDaysRepository = {
   getNonSchoolDays,
   getNonSchoolDaysById,
   getNonSchoolDaysByqueries,
+  getNonSchoolDaysByShiftAndDate,
   getNonSchoolDaysByOrderCreatedAt,
   postManyNonSchoolDays,
   putNonSchoolDaysById,
   deleteManyNonSchoolDaysById
 };
 
-export default nonSchoolDaysRespository;
+export default nonSchoolDaysRepository;
+

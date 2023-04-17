@@ -14,15 +14,37 @@ function getCoursesProgramById(coursesProgramsId: number): Promise<CoursesProgra
   });
 };
 
+async function getCoursesProgramsByIdProgram(idProgram: number) {
+  return await prisma.coursesPrograms.findMany({
+    where: {
+      idProgram
+    },
+    include: {
+      program: {
+        select: {
+          name: true
+        },
+      },
+      course: {
+        select: {
+          name: true,
+          workload: true
+        }
+      }
+    },
+  });
+}
+
+
 function postManyCoursesProgramas(coursesPrograms: CoursesPrograms[]) {
   return prisma.coursesPrograms.createMany({
     data: coursesPrograms
   });
 };
 
-function deleteCoursesProgramsById(courseProgramId: number){
+function deleteCoursesProgramsById(courseProgramId: number) {
   return prisma.coursesPrograms.delete({
-    where:{
+    where: {
       id: courseProgramId
     }
   });
@@ -32,6 +54,7 @@ function deleteCoursesProgramsById(courseProgramId: number){
 const coursesProgramsRepository = {
   getCoursesPrograms,
   getCoursesProgramById,
+  getCoursesProgramsByIdProgram,
   postManyCoursesProgramas,
   deleteCoursesProgramsById
 };
