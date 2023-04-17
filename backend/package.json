@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "dotenv -e .env.development jest --coverage",
     "seed": "ts-node ./prisma/seed.ts",
     "dev": "NODE_ENV=development nodemon --watch 'src/' --exec 'ts-node -r tsconfig-paths/register ./src/server.ts' -e ts",
     "dev:seed": "npx dotenv -e .env.development npm run seed",
