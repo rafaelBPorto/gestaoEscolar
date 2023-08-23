@@ -4,7 +4,7 @@ import { connectDb, loadEnv } from '@/config';
 import { programsRouter, coursesRouter, coursesProgramsRouter, nonSchoolDayRouter  } from '@/routers';
 import { timeTableRouter } from './routers/timetable-router';
 
-console.log("PORT deveria ser undefined pois o dotenv não foi selecionado ainda porém está sendo PORT=", process.env.PORT);
+// console.log("PORT deveria ser undefined pois o dotenv não foi selecionado ainda porém está sendo PORT=", process.env.PORT);
 loadEnv();
 const app = express();
 
